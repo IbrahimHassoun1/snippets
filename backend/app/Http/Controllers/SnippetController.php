@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Snippet;
-use Exception;
-use Illuminate\Auth\Events\Validated;
-use Illuminate\Http\Request;
 use Validator;
+use Exception;
+use App\Models\Snippet;
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Validated;
+
+
 
 class SnippetController extends Controller
 {
@@ -74,5 +76,28 @@ class SnippetController extends Controller
         }
     }
 
+    public function get(){
+        try{
+            $query = Snippet::query();
+
+            //handle keyword search
+            if(request()->has('search') && !empty(request('search'))){
+                $keyword=request('search');
+                $query->where('title', 'like', '%' . $keyword . '%')
+                    ->orWhere('code', 'like', '%' . $keyword . '%')
+                    ->orWhere('language', 'like', '%' . $keyword . '%');
+            }
+            //filter by language
+            if(request()->has('language') && !empty(request('language'))){
+                $language = request('language');
+                $query->where('language','=',  $language );
+            }
+            $snippets = $query ->get();
+            return response()->json(["data"=>$snippets,"message"=>"snippets retrieved"]);
+        }catch(Exception $e){
+            return response()->json("An error occured: ".$e);
+        }
+
+    }
 
 }
