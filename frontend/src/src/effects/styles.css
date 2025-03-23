@@ -1,0 +1,15 @@
+.fade-card{
+   
+}
+@media (max-width: 1045px){
+    .fade-card{
+        width: 45%;
+    }
+    
+}
+@media (max-width: 768px){
+    .fade-card{
+        width: 100%;
+    }
+    
+}

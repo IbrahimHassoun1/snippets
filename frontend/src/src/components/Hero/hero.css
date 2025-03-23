@@ -1,0 +1,41 @@
+.hero{
+background-image: url("../../assets/pexels-andre-furtado-43594-1264210_11zon.jpg");
+background-position:calc(50% - 0px) calc(30% - 0px);
+background-size: cover;
+min-height: 100vh;
+position: relative;
+display: flex;
+flex-direction: column;
+}
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)); 
+    z-index: 1;
+}
+.header{
+    color: var(--secondary-color);
+    margin: auto;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap:9vh;
+    align-items: center;
+    text-align: center;
+    font-weight:bolder;
+    font-size:1.5rem
+}
+
+.scroll{
+    height: 50px;
+     
+    width: 10vw;
+    min-width: fit-content
+    
+}
