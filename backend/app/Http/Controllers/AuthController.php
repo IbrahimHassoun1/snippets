@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use Validator;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
-use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Validator;
+
 
 class AuthController extends Controller
 {
-    // Register a new user
+
     public function register(Request $request)
     {
-        // Validate the incoming request data
+        // Validate the incoming request data to make sure we got the correct variables and types
         $validator = Validator::make($request->all(), [
             'full_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -24,20 +25,18 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        // Create the user
-        $user = User::create([
-            'full_name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
+        $user = new User();
+        $user->full_name = $request->full_name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+        $user->save();
 
-        // Generate JWT token for the new user
+
         $token = JWTAuth::fromUser($user);
 
         return response()->json(['token' => $token], 201);
     }
 
-    // Login existing user
     public function login(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -49,7 +48,7 @@ class AuthController extends Controller
             return response()->json($validator->errors(), 400);
         }
 
-        // Attempt to verify the credentials and create a token
+
         if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }

@@ -7,6 +7,7 @@ use app\Models\Snippet;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
 
 class User extends Authenticatable implements JWTSubject
@@ -19,11 +20,7 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+
     public function getJWTIdentifier()
     {
         return $this->getKey();
@@ -55,7 +52,8 @@ class User extends Authenticatable implements JWTSubject
             'password' => 'hashed',
         ];
     }
-    public function snippets(){
+    public function snippets()
+    {
         return $this->hasMany(Snippet::class);
     }
 }
