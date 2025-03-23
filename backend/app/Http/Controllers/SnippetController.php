@@ -76,28 +76,40 @@ class SnippetController extends Controller
         }
     }
 
-    public function get(){
-        try{
+    public function get()
+    {
+        try {
             $query = Snippet::query();
 
-            //handle keyword search
-            if(request()->has('search') && !empty(request('search'))){
-                $keyword=request('search');
-                $query->where('title', 'like', '%' . $keyword . '%')
-                    ->orWhere('code', 'like', '%' . $keyword . '%')
-                    ->orWhere('language', 'like', '%' . $keyword . '%');
+            //this if condition was rendered by copilot because it kept bugging
+            // Handle keyword search
+            if (request()->has('search') && !empty(request('search'))) {
+                $keyword = request('search');
+                $query->where(function ($q) use ($keyword) {
+                    $q->where('title', 'like', '%' . $keyword . '%')
+                        ->orWhere('code', 'like', '%' . $keyword . '%')
+                        ->orWhere('language', 'like', '%' . $keyword . '%');
+                });
             }
-            //filter by language
-            if(request()->has('language') && !empty(request('language'))){
-                $language = request('language');
-                $query->where('language','=',  $language );
-            }
-            $snippets = $query ->get();
-            return response()->json(["data"=>$snippets,"message"=>"snippets retrieved"]);
-        }catch(Exception $e){
-            return response()->json("An error occured: ".$e);
-        }
 
+            // Filter by language
+            if (request()->has('language') && !empty(request('language'))) {
+                $language = request('language');
+                $query->where('language', '=', $language);
+            }
+
+            // Get snippets with additional "liked" status
+            $snippets = $query->get()->map(function ($snippet) {
+                $user = auth()->user();
+                $snippet->liked = $user ? $user->likedSnippets()->where('snippet_id', $snippet->id)->exists() : false;
+                return $snippet;
+            });
+
+            return response()->json(["data" => $snippets, "message" => "Snippets retrieved"]);
+        } catch (Exception $e) {
+            return response()->json(["error" => "An error occurred: " . $e->getMessage()], 500);
+        }
     }
+
 
 }

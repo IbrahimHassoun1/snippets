@@ -3,7 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use app\Models\Snippet;
+use App\Models\Snippet;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -52,8 +52,8 @@ class User extends Authenticatable implements JWTSubject
             'password' => 'hashed',
         ];
     }
-    public function snippets()
-{
-    return $this->belongsToMany(Snippet::class)->withTimestamps(); // Add 'withTimestamps' to automatically handle timestamps (created_at, updated_at)
-}
+    public function likedSnippets()
+    {
+        return $this->belongsToMany(Snippet::class)->withTimestamps(); // Add 'withTimestamps' to automatically handle timestamps (created_at, updated_at)
+    }
 }
