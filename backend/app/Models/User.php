@@ -53,7 +53,7 @@ class User extends Authenticatable implements JWTSubject
         ];
     }
     public function snippets()
-    {
-        return $this->hasMany(Snippet::class);
-    }
+{
+    return $this->belongsToMany(Snippet::class)->withTimestamps(); // Add 'withTimestamps' to automatically handle timestamps (created_at, updated_at)
+}
 }
