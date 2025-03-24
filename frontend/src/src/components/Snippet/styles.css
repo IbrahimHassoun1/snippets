@@ -1,0 +1,18 @@
+code[class*="language-"], pre[class*="language-"] {
+    text-shadow: none;
+}
+.snippet-card{
+    height: 30vh;
+    border:1px solid black;
+    border-radius: 12px;
+}
+.snippet-card h4{
+    height: 10%;
+}
+.snippet-card pre{
+    height: 60%;
+}
+pre:focus,
+code:focus {
+  outline: none;
+}

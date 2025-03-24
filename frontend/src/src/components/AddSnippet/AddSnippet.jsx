@@ -1,17 +1,17 @@
 /* eslint-disable no-unused-vars */
 import React, {  useContext, useEffect, useState } from 'react'
-import axios from 'axios'
 import "./Styles.css"
 import { MyContext } from '../../context/Context'
 import { request } from '../../utils/remote/axios'
 import { requestMethods } from '../../utils/enum/request.methods'
-const AddImage = () => {
+
+
+const AddSnippet = () => {
 
 
     const { setAddPopup,url,id,setId,setGlobalFeedback}=useContext(MyContext)
     const [image, setImage] = useState(null)
     const [feedback,setFeedback] = useState(null)
-
     const [data,setData] = useState({
         title:"",
         description:"",
@@ -46,7 +46,7 @@ const AddImage = () => {
         };
 
     }
-    const addImage = async (e) =>{
+    const addSnippet = async (e) =>{
         e.preventDefault()
         const apiData = {
             owner_id:id,
@@ -74,7 +74,7 @@ const AddImage = () => {
             
         </div>
         <div className="table">
-            <form onSubmit={(e)=>addImage(e)}>
+            <form onSubmit={(e)=>addSnippet(e)}>
                 <input  
                     type="file" 
                     accept="image/*" 
@@ -105,4 +105,4 @@ const AddImage = () => {
 )
 }
 
-export default AddImage
+export default AddSnippet
