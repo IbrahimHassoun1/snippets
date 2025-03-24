@@ -18,8 +18,10 @@ export const request = async ({ method, route, body }) => {
         }
     });
 
+    console.log("row response: ")
+    console.log(response)
     return {
-        success: true,
+        success: response.data.success,
         message: response.data.message,
         data:response.data.data
     }

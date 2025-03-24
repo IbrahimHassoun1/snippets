@@ -16,3 +16,10 @@ pre:focus,
 code:focus {
   outline: none;
 }
+.snippet-card ul{
+    display: flex;
+    justify-content: space-around;
+}
+.fontawesome-icon{
+    cursor: pointer;
+}
