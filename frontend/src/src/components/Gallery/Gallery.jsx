@@ -14,11 +14,10 @@ const Gallery = () => {
 
   
   const {addPopup, setAddPopup,id,url,images,setImages,loggedIn,setLoggedIn}=useContext(MyContext)
-  const getAllImages = async ()=>{
+  const getAllSnippets = async ()=>{
     const response = await request({
-      method:requestMethods.POST,
-      route:"/image/readAllImages.php",
-      body:{"owner_id":localStorage.getItem("id")}
+      method:requestMethods.GET,
+      route:"/snippet/get",
     })
     if(!response.error){
       setImages(response.data)
@@ -28,7 +27,7 @@ const Gallery = () => {
 
 
   useEffect(()=>{
-    localStorage.getItem("id")!=null? getAllImages():"",
+    localStorage.getItem("access_token")!=null? getAllSnippets():"",
     console.log(images)
   },[])
 
@@ -43,14 +42,14 @@ const Gallery = () => {
         <div className="table">
           {images.length>0?
           images.map((element,index)=>{
-            return <FadeInOut direction='in' key={element.id}><Snippet src={element.base64} title={element.title} description={element.description} key={element.id} image_id={element.id} index={index}/></FadeInOut>
+            return <FadeInOut direction='in' key={element.id}><Snippet title={element.title} code={element.code} key={element.id} index={index} language={element.language}/></FadeInOut>
           })
           :loggedIn?
           <h1>There are no snippets available now</h1>
           :<h1>Login to access Snippets</h1>}
         
           </div>
-          {loggedIn? <button addPopup={addPopup} setAddPopup={setAddPopup} >Add snippet</button>:""}
+          {loggedIn? <button addPopup={addPopup} setAddPopup={setAddPopup} className='add-button'>Add snippet</button>:""}
           
     </div>
     </div>

@@ -10,7 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/react-fontawesome": "^0.2.2",
     "axios": "^1.8.3",
+    "prismjs": "^1.30.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.3.0",
@@ -27,5 +30,5 @@
     "globals": "^15.15.0",
     "vite": "^6.2.0"
   },
-   "proxy": "http://localhost:80"
+  "proxy": "http://localhost:80"
 }

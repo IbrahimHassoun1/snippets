@@ -18,8 +18,8 @@ const ContextProvider = ({children}) =>{
         if(localStorage.getItem("id")!=null) setId(localStorage.getItem("id"));
     },[])
     useEffect(()=>{
-        
-    },[id])
+        localStorage.getItem("access_token")?setLoggedIn(true):""
+    },[])
     const value={
         url,
         registered,setRegistered,
