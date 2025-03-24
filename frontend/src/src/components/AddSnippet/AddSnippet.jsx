@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, {  useContext, useEffect, useState } from 'react'
 import axios from 'axios'
-import "./AddImage.css"
+import "./Styles.css"
 import { MyContext } from '../../context/Context'
 import { request } from '../../utils/remote/axios'
 import { requestMethods } from '../../utils/enum/request.methods'
