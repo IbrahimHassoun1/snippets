@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from 'react'
 import './Gallery.css'
-import ImageCard from '../ImageCard/ImageCard'
-import AddImage from '../AddImage/AddImage'
+import Snippet from '../Snippet/Snippet'
+import AddSnippet from '../AddSnippet/AddSnippet'
 import { MyContext } from '../../context/Context'
 import FadeInOut from '../../effects/FadeInOut'
 import { request } from '../../utils/remote/axios'
@@ -35,7 +35,7 @@ const Gallery = () => {
  
   return (
     <div className='parent'>
-      {addPopup?<AddImage/>:""}
+      {addPopup?<AddSnippet/>:""}
     <div className='container gallery'>
         
         <h1 id='photos'>Snippets</h1>
@@ -43,7 +43,7 @@ const Gallery = () => {
         <div className="table">
           {images.length>0?
           images.map((element,index)=>{
-            return <FadeInOut direction='in' key={element.id}><ImageCard src={element.base64} title={element.title} description={element.description} key={element.id} image_id={element.id} index={index}/></FadeInOut>
+            return <FadeInOut direction='in' key={element.id}><Snippet src={element.base64} title={element.title} description={element.description} key={element.id} image_id={element.id} index={index}/></FadeInOut>
           })
           :loggedIn?
           <h1>There are no snippets available now</h1>
