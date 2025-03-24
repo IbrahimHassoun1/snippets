@@ -13,7 +13,7 @@ import { requestMethods } from '../../utils/enum/request.methods'
 const Gallery = () => {
 
   
-  const {addPopup, setAddPopup,id,url,images,setImages,loggedIn,setLoggedIn}=useContext(MyContext)
+  const {addPopup, setAddPopup,id,url,images,setImages,loggedIn,globalFeedBack,setGlobalFeedback}=useContext(MyContext)
   const getAllSnippets = async ()=>{
     const response = await request({
       method:requestMethods.GET,
@@ -42,7 +42,7 @@ const Gallery = () => {
         <div className="table">
           {images.length>0?
           images.map((element,index)=>{
-            return <FadeInOut direction='in' key={element.id}><Snippet title={element.title} code={element.code} key={element.id} index={index} language={element.language}/></FadeInOut>
+            return <FadeInOut direction='in' id={element.id} key={element.id}><Snippet title={element.title} code={element.code} key={element.id} index={index} language={element.language}/></FadeInOut>
           })
           :loggedIn?
           <h1>There are no snippets available now</h1>
@@ -50,7 +50,7 @@ const Gallery = () => {
         
           </div>
           {loggedIn? <button addPopup={addPopup} setAddPopup={setAddPopup} className='add-button'>Add snippet</button>:""}
-          
+          <p>{globalFeedBack}</p>
     </div>
     </div>
     

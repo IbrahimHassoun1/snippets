@@ -12,6 +12,7 @@ const ContextProvider = ({children}) =>{
     const [loggedIn,setLoggedIn]= useState(false)
     const [addPopup, setAddPopup] = useState(false)
     const [images,setImages] = useState([])
+    const [globalFeedBack,setGlobalFeedback] = useState("")
      const url='http://localhost/gallery/server/apis/v1'
     const test="test"
     useEffect(()=>{
@@ -28,7 +29,8 @@ const ContextProvider = ({children}) =>{
         id,setId,
         images,setImages,
         test,
-        loggedIn,setLoggedIn
+        loggedIn,setLoggedIn,
+        globalFeedBack,setGlobalFeedback
     }
     
     

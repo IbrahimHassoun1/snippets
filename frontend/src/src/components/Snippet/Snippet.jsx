@@ -5,17 +5,31 @@ import 'prismjs/components/prism-markup'; // HTML
 import 'prismjs/components/prism-css';
 import 'prismjs/themes/prism-tomorrow.css';
 import "./styles.css"
-import { useEffect } from 'react';
+import { useContext, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash,faPen,faHeart } from '@fortawesome/free-solid-svg-icons';
+import { MyContext } from '../../context/Context';
+import { request } from '../../utils/remote/axios';
+import { requestMethods } from '../../utils/enum/request.methods';
 
-const ImageCard = ({language,code,title}) => {
+const Snippet = ({language,code,title,id}) => {
 
     useEffect(() => {
         Prism.highlightAll();
     }, []);
 
-    
+    const {globalFeedBack,setGlobalFeedback}=useContext(MyContext)
+
+    const deleteSnippet = async()=>{
+        const response = await request({
+            method:requestMethods.DELETE,
+            route:"/snippet/delete",
+            body:{"id":id}
+        })
+        console.log("deletion response")
+        console.log(response)
+        setGlobalFeedback(response.message)
+    }
     return (
     
         <div className="snippet-card">
@@ -25,9 +39,20 @@ const ImageCard = ({language,code,title}) => {
                     {code}
                 </code>
             </pre>
+            <ul>
+                <li>
+                <FontAwesomeIcon icon={faTrash} className='fontawesome-icon' onClick={()=>deleteSnippet()} />
+                </li>
+                <li>
+                <FontAwesomeIcon icon={faPen} className='fontawesome-icon'/>
+                </li>
+                <li>
+                <FontAwesomeIcon icon={faHeart} className='fontawesome-icon'/>
+                </li>
+            </ul>
         </div>
 
 )
 }
 
-export default ImageCard
+export default Snippet
